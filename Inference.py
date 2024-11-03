@@ -84,13 +84,6 @@ if __name__ == '__main__':
 
             max_new_tokens = 200
 
-            max_len = 0
-            for input_text in dataset[3]:
-                input_encoding = tokenizer(input_text, return_tensors="pt")
-                max_len = max(max_len, input_encoding["input_ids"].shape[-1])
-
-            max_new_tokens = max_len + 30
-
             generated_output_texts = dataset_inference(input_texts, tokenizer, model, max_new_tokens)
 
             with open(os.path.join(outputs_path, name, "true_middles.json"), 'w') as file:
