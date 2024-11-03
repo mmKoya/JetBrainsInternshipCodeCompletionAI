@@ -1,0 +1,392 @@
+[
+    [
+        "def square_map_cartesian_to_polar(curve_cartesian, x_bounds, y_bounds, rho_bounds, theta_bounds):\n        if y_bound",
+        "s[0] == y_bounds[1]",
+        ":\n            rho = np.ones(curve_cartesian[:, 1].shape) * rho_bounds[0]\n        else:\n            rho = (curve_cartesian[:, 1] - y_bounds[0]) / (y_bounds[1] - (y_bounds[0])) * ("
+    ],
+    [
+        "        else:\n            rho = (curve_cartesian[:, 1] - y_bounds[0]) / (y_bounds[1] - (y_bounds[0])) * (\n                        rho_bounds[1] - rho_bounds[0]) + rho_bounds[0]\n        if x_bounds",
+        "[0] == x_bounds[1]",
+        ":\n            theta = np.ones(curve_cartesian[:, 0].shape) * theta_bounds[0]\n        else:\n            theta = (curve_cartesian[:, 0] - x_bounds[0]) / (x_bounds[1] - (x_bounds[0])) * (theta_bounds[1] - theta_bounds[0]) + theta_bounds[0]"
+    ],
+    [
+        "def math_function(function, values, input_coordinate=\"x_input\", polar=False):\n        if input_coordina",
+        "te == \"x_input\"",
+        ":\n            x_values = values\n            y_values = np.array([function(x) for x in x_values])\n            curve = np.vstack((x_values, y_values)).T"
+    ],
+    [
+        "            x_values = values\n            y_values = np.array([function(x) for x in x_values])\n            curve = np.vstack((x_values, y_values)).T\n        elif input_c",
+        "oordinate == \"y_input\"",
+        ":\n            y_values = values\n            x_values = np.array([function(y) for y in y_values])\n            curve = np.vstack((x_values, y_values)).T"
+    ],
+    [
+        "            y_values = values\n            x_values = np.array([function(y) for y in y_values])\n            curve = np.vstack((x_values, y_values)).T\n        elif input_c",
+        "oordinate == \"parametric\"",
+        ":\n            result = [function(value) for value in values]\n            curve = np.array(result)\n        else:"
+    ],
+    [
+        "        for i in range(grid_size[0] + 1):\n            control_nodes.append([i * grid_step[0], np.random.randint(0, grid_size[1] + 1) * grid_step[1]])\n        control_nodes = np.array(control_nodes)\n        if interpolation_",
+        "type == \"bezier\"",
+        ":\n            curve = CurveGenerator.bezier(control_nodes)\n        elif interpolation_type == \"linear\":\n            curve = control_nodes"
+    ],
+    [
+        "        control_nodes = np.array(control_nodes)\n        if interpolation_type == \"bezier\":\n            curve = CurveGenerator.bezier(control_nodes)\n        elif interp",
+        "olation_type == \"linear\"",
+        ":\n            curve = control_nodes\n        else:\n            curve = CurveTransforms.interpolate(control_nodes, 100, \"cubic\", False)"
+    ],
+    [
+        "        x_abs = x2 - x1\n        y_abs = y2 - y1\n        clip_ar = x_abs / y_abs\n        if clip_ar < ",
+        "image_ar",
+        ":\n            new_height = np.minimum(int(np.minimum(height, y_abs*dpu)), height-1)\n            new_width = int(new_height * clip_ar)\n        else:"
+    ],
+    [
+        "def custom_ring_arc(image, dpu=1000.0, inner_curve: (np.ndarray, int, float, float, str) = (np.array([[0.0, 0.0]]), 1, 0.5, 0.05, \"cartesian\"),\n                        outer_curve: (np.ndarray, int, float, str) = (np.array([[0.0, 0.0]]), 1, 0.8, 0.05, \"cartesian\"), theta1=0.0, theta2=np.pi/6,\n                        left_side=False, right_side=False) -> (np.ndarray, (float, float, float, float), Path, List[np.ndarray]):\n        if inner_",
+        "curve is None",
+        ":\n            curve1 = np.array([[0, 0]])\n        else:\n            (curve1, periods1, radius1, width1, coordinate_type1) = inner_curve"
+    ],
+    [
+        "            curve1 = CurveTransforms.polar_to_cartesian(curve1)\n            curve1 = np.vstack([CurveTransforms.rotate_single(curve1, i * (theta2 - theta1) / periods1, inplace=False) for i in range(0, periods1)])\n        (curve2, periods2, radius2, width2, coordinate_type2) = outer_curve\n        if coordinate_typ",
+        "e2 == \"polar\"",
+        ":\n            curve2 = CurveTransforms.tight_remap_polar_to_polar(curve2, (radius2 - width2, radius2), (theta1, theta1 + (theta2-theta1)/periods2))\n            curve2 = CurveTransforms.polar_to_cartesian(curve2)\n        else:"
+    ],
+    [
+        "            curve2 = CurveTransforms.tight_map_cartesian_to_polar(curve2, (radius2 - width2, radius2), (theta1, theta1 + (theta2-theta1)/periods2))\n        curve2 = CurveTransforms.polar_to_cartesian(curve2)\n        curve2 = np.flip(np.vstack([CurveTransforms.rotate_single(curve2, i*(theta2-theta1)/periods2, inplace=False) for i in range(0, periods2)]), 0)\n        if left_side an",
+        "d right_side",
+        ":\n            outline_curves = [np.vstack((curve1, curve2, np.array([[curve1[0, 0], curve1[0, 1]]])))]\n        elif right_side:\n            outline_curves = [np.vstack((curve1, curve2))]"
+    ],
+    [
+        "            curve1 = np.array([[0, 0]])\n        else:\n            (curve1, periods1, radius1, width1, coordinate_type1) = inner_curve\n            if coordinat",
+        "e_type1 == \"polar\"",
+        ":\n                curve1 = CurveTransforms.tight_remap_polar_to_polar(curve1, (radius1, radius1+width1), (theta1, theta1 + (theta2-theta1)/periods1))\n                curve1 = CurveTransforms.polar_to_cartesian(curve1)\n            else:"
+    ],
+    [
+        "        curve2 = np.flip(np.vstack([CurveTransforms.rotate_single(curve2, i*(theta2-theta1)/periods2, inplace=False) for i in range(0, periods2)]), 0)\n        if left_side and right_side:\n            outline_curves = [np.vstack((curve1, curve2, np.array([[curve1[0, 0], curve1[0, 1]]])))]\n        elif right",
+        "_side",
+        ":\n            outline_curves = [np.vstack((curve1, curve2))]\n        elif left_side:\n            outline_curves = [np.vstack((curve2, curve1))]"
+    ],
+    [
+        "        self.PersistentClipPaths = [main_clip_path]\n        self.PersistentTransforms = [Affine2D()]\n        self.AdditiveTransforms = []\n        if local_",
+        "outline_curves",
+        ":\n            self.LocalOutlineCurves = local_outline_curves\n        else:\n            self.LocalOutlineCurves = []"
+    ],
+    [
+        "def plot_persistent(self, ax: \"Axes\", transform, z_order, outline_thickness=0.5, debug_colors=False):\n        if debug",
+        "_colors",
+        ":\n            outline_color = ImageSample.outline_colors[ImageSample.current_outline]\n        else:\n            outline_color = [0.0, 0.0, 0.0]"
+    ],
+    [
+        "        z_order += 0.001\n        for curve in self.AdditionalCurves:\n            ax.plot(curve[:, 0], curve[:, 1], color=\"k\", solid_capstyle='round', zorder=z_order, transform=ax.transData, linewidth=outline_thickness)\n        if len(self.Additiv",
+        "eTransforms) == 0",
+        ":\n            self.plot_persistent(ax, Affine2D(), z_order, outline_thickness, debug_colors)\n        else:\n            for transform in self.AdditiveTransforms:"
+    ],
+    [
+        "def rotational_repeat(repetitions: int = None, delta_angle: float = None, rotation_offset=0.0, use_flip=True, flip_angle=0.0, reverse_rotation=False):\n        if repetitions i",
+        "s None and delta_angle is None",
+        ":\n            repetitions = 1\n            angle = None\n        elif repetitions is None:"
+    ],
+    [
+        "        else:\n            repetitions = np.maximum(1, repetitions)\n            angle = delta_angle\n        if angle i",
+        "s None",
+        ":\n            angle = 2 * np.pi / repetitions\n        if reverse_rotation:\n            angle = -angle"
+    ],
+    [
+        "            angle = delta_angle\n        if angle is None:\n            angle = 2 * np.pi / repetitions\n        if rever",
+        "se_rotation",
+        ":\n            angle = -angle\n        transforms = []\n        for i in range(repetitions):"
+    ],
+    [
+        "        if repetitions is None and delta_angle is None:\n            repetitions = 1\n            angle = None\n        elif repetitio",
+        "ns is None",
+        ":\n            repetitions = int(np.trunc(2 * np.pi / delta_angle))\n            angle = None\n        elif delta_angle is None:"
+    ],
+    [
+        "            angle = -angle\n        transforms = []\n        for i in range(repetitions):\n            if i % 2 ==",
+        " 0 or not use_flip",
+        ":\n                trans_data = Affine2D().rotate(i * angle + rotation_offset)\n            else:\n                trans_data = Affine2D().rotate(-flip_angle).scale(1, -1).rotate(i * angle + flip_angle + rotation_offset)"
+    ],
+    [
+        "        elif repetitions is None:\n            repetitions = int(np.trunc(2 * np.pi / delta_angle))\n            angle = None\n        elif delta_a",
+        "ngle is None",
+        ":\n            repetitions = np.maximum(1, repetitions)\n            angle = None\n        else:"
+    ],
+    [
+        "def circular_placement(radius=0.5, repetitions: int = None, delta_angle: float = None, local_rotation_offset=0.0,\n                           global_rotation_offset=0.0, use_flip=False, flip_angle=0.0, reverse_rotation=False):\n        if repetitions is N",
+        "one and delta_angle is None",
+        ":\n            repetitions = 1\n            angle = None\n        elif repetitions is None:"
+    ],
+    [
+        "        else:\n            repetitions = np.maximum(1, repetitions)\n            angle = delta_angle\n        if angle ",
+        "is None",
+        ":\n            angle = 2 * np.pi / repetitions\n        if reverse_rotation:\n            angle = -angle"
+    ],
+    [
+        "            angle = delta_angle\n        if angle is None:\n            angle = 2 * np.pi / repetitions\n        if reverse_",
+        "rotation",
+        ":\n            angle = -angle\n        transforms = []\n        for i in range(repetitions):"
+    ],
+    [
+        "        if repetitions is None and delta_angle is None:\n            repetitions = 1\n            angle = None\n        elif repetiti",
+        "ons is None",
+        ":\n            repetitions = np.trunc(2 * np.pi / delta_angle)\n            angle = None\n        elif delta_angle is None:"
+    ],
+    [
+        "            angle = -angle\n        transforms = []\n        for i in range(repetitions):\n            if i % 2 == 0 o",
+        "r not use_flip",
+        ":\n                trans_data = Affine2D().rotate(local_rotation_offset).translate(radius, 0).rotate(i * angle + global_rotation_offset)\n            else:\n                trans_data = Affine2D().rotate(-flip_angle).scale(1, -1).rotate(flip_angle + local_rotation_offset).translate(radius, 0).rotate(i * angle + global_rotation_offset)"
+    ],
+    [
+        "        elif repetitions is None:\n            repetitions = np.trunc(2 * np.pi / delta_angle)\n            angle = None\n        elif delta_a",
+        "ngle is None",
+        ":\n            repetitions = np.maximum(1, repetitions)\n            angle = None\n        else:"
+    ],
+    [
+        "        additive_transforms = TransformsGenerator.circular_placement(radius, repetitions, delta_angle, local_rotation_offset,\n                                                                     global_rotation_offset, use_flip, flip_angle, reverse_rotation)\n        image_sample.AdditiveTransforms = additive_transforms\n        if calculate",
+        "_overlap",
+        ":\n            (new_persistent_paths, new_persistent_transforms, outline_curves) = paths_self_overlap(image_sample.PersistentClipPaths, image_sample.PersistentTransforms,\n                                                                                                   additive_transforms[0], additive_transforms[1])\n            image_sample.PersistentTransforms = new_persistent_transforms"
+    ],
+    [
+        "def leaf_center(image, dpu=1000.0, segments=8, radius=0.4, height=0.2, sample_rotation=0.0, global_rotation=0.0, left_edge=True, right_edge=False, leaf_type=\"sharp\"):\n        if leaf_type",
+        " == \"sharp\"",
+        ":\n            leaf = CurveGenerator.bezier(np.array([[-1, 0], [-1, 1], [0, 1], [0, 2]]))\n        else:\n            leaf = CurveGenerator.bezier(np.array([[-1, 0], [-1, 1], [0, 2]]))"
+    ],
+    [
+        "def update_curve_bounds(self, bounds):\n        if self.X_bo",
+        "unds is None",
+        ":\n            self.X_bounds = bounds[0]\n            self.Y_bounds = bounds[1]\n            self.Rho_bounds = bounds[2]"
+    ],
+    [
+        "        self.PlotType.append(plot_type)\n        if bounds:\n            self.update_curve_bounds(bounds)\n        elif evalu",
+        "ate_bounds",
+        ":\n            self.update_curve_bounds(self.evaluate_curve_bounds(curve))"
+    ],
+    [
+        "def __iadd__(self, figure: \"Figure\"):\n        if isinstance(fi",
+        "gure, Figure)",
+        ":\n            self.append_figure(figure)\n        else:\n            raise TypeError(\"Operator += can only be used with instance of class Figure\")"
+    ],
+    [
+        "def __add__(self, figure: \"Figure\"):\n        if isinstance(fig",
+        "ure, Figure)",
+        ":\n            new_figure = Figure()\n            new_figure += self\n            new_figure += figure"
+    ],
+    [
+        "            image.plot(ax, self.z_order, image_outline_width)\n            Figure.z_order += 1\n        for i in range(len(self.Curves)):\n            if self.PlotType",
+        "[i] == \"clear\"",
+        ":\n                ax.fill(self.Curves[i][:, 0], self.Curves[i][:, 1], color=\"w\", zorder=self.z_order)\n            elif self.PlotType[i] == \"fill\":\n                ax.fill(self.Curves[i][:, 0], self.Curves[i][:, 1], color=\"k\", zorder=self.z_order)"
+    ],
+    [
+        "        for i in range(len(self.Curves)):\n            if self.PlotType[i] == \"clear\":\n                ax.fill(self.Curves[i][:, 0], self.Curves[i][:, 1], color=\"w\", zorder=self.z_order)\n            elif self.",
+        "PlotType[i] == \"fill\"",
+        ":\n                ax.fill(self.Curves[i][:, 0], self.Curves[i][:, 1], color=\"k\", zorder=self.z_order)\n            elif self.PlotType[i] > 0:\n                ax.plot(self.Curves[i][:, 0], self.Curves[i][:, 1], color=\"k\", solid_capstyle='round',"
+    ],
+    [
+        "                ax.fill(self.Curves[i][:, 0], self.Curves[i][:, 1], color=\"w\", zorder=self.z_order)\n            elif self.PlotType[i] == \"fill\":\n                ax.fill(self.Curves[i][:, 0], self.Curves[i][:, 1], color=\"k\", zorder=self.z_order)\n            elif self.Plo",
+        "tType[i] > 0",
+        ":\n                ax.plot(self.Curves[i][:, 0], self.Curves[i][:, 1], color=\"k\", solid_capstyle='round',\n                         linewidth=self.PlotType[i], zorder=self.z_order)\n            elif self.PlotType[i] < 0:"
+    ],
+    [
+        "            elif self.PlotType[i] > 0:\n                ax.plot(self.Curves[i][:, 0], self.Curves[i][:, 1], color=\"k\", solid_capstyle='round',\n                         linewidth=self.PlotType[i], zorder=self.z_order)\n            elif self.P",
+        "lotType[i] < 0",
+        ":\n                ax.fill(self.Curves[i][:, 0], self.Curves[i][:, 1], color=\"w\", zorder=self.z_order)\n                ax.plot(self.Curves[i][:, 0], self.Curves[i][:, 1], color=\"k\", solid_capstyle='round',\n                         linewidth=self.PlotType[i], zorder=self.z_order)"
+    ],
+    [
+        "        figure = Figure()\n        for curve in diamonds:\n            figure.add_curve(curve, line_width)\n        if fill ",
+        "and line_width",
+        ":\n            for curve in diamonds:\n                figure.add_curve(curve, 0)\n        figure.evaluate_bounds()"
+    ],
+    [
+        "def rotation_repeat_curves(curves: \"list\", number_of_segments=None, delta_angle=None, scale=1.0, reverse_rotation=False):\n        if number_of_segme",
+        "nts is None and delta_angle is None",
+        ":\n            repetitions = 1\n            angle = None\n        elif number_of_segments is None:"
+    ],
+    [
+        "        else:\n            repetitions = np.maximum(1, number_of_segments)\n            angle = delta_angle\n        if angle",
+        " is None",
+        ":\n            angle = 2*np.pi/repetitions\n        if reverse_rotation:\n            angle = -angle"
+    ],
+    [
+        "            angle = delta_angle\n        if angle is None:\n            angle = 2*np.pi/repetitions\n        if revers",
+        "e_rotation",
+        ":\n            angle = -angle\n        scale = np.array(scale)\n        if scale.size == 1:"
+    ],
+    [
+        "        if reverse_rotation:\n            angle = -angle\n        scale = np.array(scale)\n        if scale",
+        ".size == 1",
+        ":\n            scales = scale*np.ones(repetitions)\n        elif scale.size == 2:\n            scales = np.linspace(scale[0], scale[1], repetitions)"
+    ],
+    [
+        "        if number_of_segments is None and delta_angle is None:\n            repetitions = 1\n            angle = None\n        elif number_of_se",
+        "gments is None",
+        ":\n            repetitions = np.trunc(2*np.pi/delta_angle)\n            angle = None\n        elif delta_angle is None:"
+    ],
+    [
+        "        scale = np.array(scale)\n        if scale.size == 1:\n            scales = scale*np.ones(repetitions)\n        elif scale",
+        ".size == 2",
+        ":\n            scales = np.linspace(scale[0], scale[1], repetitions)\n        elif scale.size == repetitions:\n            scales = scale"
+    ],
+    [
+        "        elif number_of_segments is None:\n            repetitions = np.trunc(2*np.pi/delta_angle)\n            angle = None\n        elif delta_angl",
+        "e is None",
+        ":\n            repetitions = np.maximum(1, number_of_segments)\n            angle = None\n        else:"
+    ],
+    [
+        "            scales = scale*np.ones(repetitions)\n        elif scale.size == 2:\n            scales = np.linspace(scale[0], scale[1], repetitions)\n        elif scale.si",
+        "ze == repetitions",
+        ":\n            scales = scale\n        else:\n            scales = np.ones(repetitions)"
+    ],
+    [
+        "    visited = [False] * n\n    swaps = 0\n    for i in range(n):\n        if visited[i] o",
+        "r perm1_mapped[i] == i",
+        ":\n            continue\n        cycle_length = 0\n        j = i"
+    ],
+    [
+        "            continue\n        cycle_length = 0\n        j = i\n        while not vis",
+        "ited[j]",
+        ":\n            visited[j] = True\n            j = perm1_mapped[j]\n            cycle_length += 1"
+    ],
+    [
+        "            visited[j] = True\n            j = perm1_mapped[j]\n            cycle_length += 1\n        if cycle_le",
+        "ngth > 0",
+        ":\n            swaps += cycle_length - 1  \n    return swaps"
+    ],
+    [
+        "    similarities = {}\n    for region_id, region in regions.items():\n        for neighbour_id in region['neighbors']:\n            if region",
+        "_id < neighbour_id",
+        ":\n                similarities[(region_id, neighbour_id)] = histogram_intersection(regions[region_id]['color_histogram'], regions[neighbour_id]['color_histogram'])\n    return similarities"
+    ],
+    [
+        "    region1_info = regions[region1_id]\n    region2_info = regions[region2_id]\n    for neighbour in region1_info['neighbors']:\n        if neighbour",
+        " < region1_id",
+        ":\n            del similarities[(neighbour, region1_id)]\n        else:\n            del similarities[(region1_id, neighbour)]"
+    ],
+    [
+        "            del similarities[(region1_id, neighbour)]\n    similarities[(region1_id, region2_id)] = 0\n    for neighbour in region2_info['neighbors']:\n        if neighb",
+        "our < region2_id",
+        ":\n            del similarities[(neighbour, region2_id)]\n        else:\n            del similarities[(region2_id, neighbour)]"
+    ],
+    [
+        "    new_region['neighbors'].discard(max(region1_id, region2_id))\n    for neighbour in new_region['neighbors']:\n        similarity = histogram_intersection(regions[neighbour]['color_histogram'], regions[new_id]['color_histogram'])\n        if neighbour ",
+        "< new_id",
+        ":\n            similarities[(neighbour, new_id)] = similarity\n        else:\n            similarities[(new_id, neighbour)] = similarity"
+    ],
+    [
+        "def visit_Call(self, node):\n        func_name = None\n        if isinstance(n",
+        "ode.func, ast.Name)",
+        ":\n            func_name = node.func.id\n        elif isinstance(node.func, ast.Attribute):\n            parts = []"
+    ],
+    [
+        "        func_name = None\n        if isinstance(node.func, ast.Name):\n            func_name = node.func.id\n        elif isinstance(node.f",
+        "unc, ast.Attribute)",
+        ":\n            parts = []\n            current = node.func\n            while isinstance(current, ast.Attribute):"
+    ],
+    [
+        "        elif isinstance(node.func, ast.Attribute):\n            parts = []\n            current = node.func\n            while isinstance",
+        "(current, ast.Attribute)",
+        ":\n                parts.insert(0, current.attr)\n                current = current.value\n            if isinstance(current, ast.Name):"
+    ],
+    [
+        "            while isinstance(current, ast.Attribute):\n                parts.insert(0, current.attr)\n                current = current.value\n            if isinstance(cur",
+        "rent, ast.Name)",
+        ":\n                parts.insert(0, current.id)\n            func_name = \".\".join(parts)\n        args = [ast.get_source_segment(self.source_code, arg) for arg in node.args]"
+    ],
+    [
+        "def collect_assignment_info(self, node):\n        if isinstance(",
+        "node, ast.Assign)",
+        ":\n            targets = node.targets\n            value = node.value\n        elif isinstance(node, ast.AugAssign):"
+    ],
+    [
+        "        if isinstance(node, ast.Assign):\n            targets = node.targets\n            value = node.value\n        elif isinstance(",
+        "node, ast.AugAssign)",
+        ":\n            targets = [node.target]\n            value = node.value\n        elif isinstance(node, ast.AnnAssign):"
+    ],
+    [
+        "        elif isinstance(node, ast.AugAssign):\n            targets = [node.target]\n            value = node.value\n        elif isins",
+        "tance(node, ast.AnnAssign)",
+        ":\n            targets = [node.target]\n            value = node.value\n        else:"
+    ],
+    [
+        "    tree = ast.parse(code)\n    conditions = []\n    for node in ast.walk(tree):\n        if isinstance(node, (",
+        "ast.If, ast.While))",
+        ":\n            condition = ast.get_source_segment(code, node.test)\n            start_line = node.test.lineno\n            start_col = node.test.col_offset"
+    ],
+    [
+        "            end_line = node.test.end_lineno\n            end_col = node.test.end_col_offset\n            conditions.append(((start_line, start_col), (end_line, end_col)))\n        elif isinstance(node",
+        ", ast.Assert)",
+        ":\n            condition = ast.get_source_segment(code, node.test)\n            start_line = node.test.lineno\n            start_col = node.test.col_offset"
+    ],
+    [
+        "            end_line = node.test.end_lineno\n            end_col = node.test.end_col_offset\n            conditions.append(((start_line, start_col), (end_line, end_col)))\n        elif isinstan",
+        "ce(node, ast.Expr) and isinstance(node.value, ast.IfExp)",
+        ":\n            condition = ast.get_source_segment(code, node.value.test)\n            start_line = node.value.test.lineno\n            start_col = node.value.test.col_offset"
+    ],
+    [
+        "            function_call['end_col_offset'] - 1,\n        )\n        parentheses_balance = 1\n        while parenthes",
+        "es_balance",
+        ":\n            char = lines[current_line][start_idx]\n            parentheses_balance += 1 if char == ')' else -1 if char == '(' else 0\n            start_idx -= 1"
+    ],
+    [
+        "            char = lines[current_line][start_idx]\n            parentheses_balance += 1 if char == ')' else -1 if char == '(' else 0\n            start_idx -= 1\n            if start_i",
+        "dx < 0",
+        ":\n                current_line -= 1\n                start_idx = len(lines[current_line]) - 1\n        prefix = '\\n'.join(lines[function_call['start_line'] - 1:current_line] + [lines[current_line][:start_idx + 2]])"
+    ],
+    [
+        "        new_examples = []\n        for example in examples:\n            prefix, middle, suffix = example\n            if len(middle) < m",
+        "in_left + min_right",
+        ":\n                continue\n            while True:\n                split_idx = random.randint(min_left, min_left + (len(middle) - min_right - min_left) // 2 + 1)"
+    ],
+    [
+        "                continue\n            while True:\n                split_idx = random.randint(min_left, min_left + (len(middle) - min_right - min_left) // 2 + 1)\n                if middle[split_idx - 1:",
+        "split_idx + 1] != r'\\n'",
+        ":\n                    break\n            prefix += middle[:split_idx]\n            middle = middle[split_idx:]"
+    ],
+    [
+        "        \"\"\"Generate examples by extracting specified middle lines with configurable context lines.\"\"\"\n        lines = block.splitlines()\n        num_lines = len(lines)\n        if num_lines < 2 *",
+        " min_context_lines + middle_line_count",
+        ":\n            return []\n        examples = []\n        for middle_start in range(min_context_lines, num_lines - min_context_lines - middle_line_count):"
+    ],
+    [
+        "        num_lines = len(lines)\n        examples = []\n        for call in function_calls:\n            if len(call['arguments",
+        "']) > max_arguments > 0",
+        ":\n                continue\n            if call['start_line'] - 1 < min_context_lines or num_lines - call['end_line'] < min_context_lines:\n                continue"
+    ],
+    [
+        "        for call in function_calls:\n            if len(call['arguments']) > max_arguments > 0:\n                continue\n            if call['start_line'] - 1 < min_conte",
+        "xt_lines or num_lines - call['end_line'] < min_context_lines",
+        ":\n                continue\n            prefix, middle, suffix = TextUtils.extract_function_call_details(lines, call)\n            if not middle:"
+    ],
+    [
+        "            if call['start_line'] - 1 < min_context_lines or num_lines - call['end_line'] < min_context_lines:\n                continue\n            prefix, middle, suffix = TextUtils.extract_function_call_details(lines, call)\n            if not mi",
+        "ddle",
+        ":\n                continue\n            start = max(0, call['start_line'] - 1 - (max_context_lines if max_context_lines >= 0 else call['start_line'] - 1))\n            end = min(num_lines, call['end_line'] + (max_context_lines if max_context_lines >= 0 else num_lines))"
+    ],
+    [
+        "        num_lines = len(lines)\n        start_line, start_idx = start_pos[0] - 1, start_pos[1]\n        end_line, end_idx = end_pos[0] - 1, end_pos[1]\n        if start_line < min_context_lines or nu",
+        "m_lines - end_line - 1 < min_context_lines",
+        ":\n            return None\n        middle_text = (\n            lines[start_line][start_idx:end_idx] if start_line == end_line"
+    ],
+    [
+        "                [lines[start_line][start_idx:]] + lines[start_line + 1:end_line] + [lines[end_line][:end_idx]]\n            )\n        )\n        if 0 < max_chara",
+        "cters < len(middle_text)",
+        ":\n            return None\n        start = max(0, start_line - (max_context_lines if max_context_lines >= 0 else start_line))\n        end = min(num_lines, end_line + 1 + (max_context_lines if max_context_lines >= 0 else num_lines))"
+    ],
+    [
+        "                    datasets.append((dataset_name, examples))\n                    random_split_name = f'random_split_{dataset_type}_{max_value}_{max_context}'\n                    examples_split = TextUtils.random_split_middle_examples(examples, min_left=5, min_right=5)\n                    if examples",
+        "_split",
+        ":\n                        datasets.append((random_split_name, examples_split))\n        return datasets"
+    ],
+    [
+        "        results['rouge'] = self.rouge_score(generated, expected)\n        results['meteor'] = self.meteor_score(generated, expected)\n        results['bert'] = self.bert_score(generated, expected)\n        if check_s",
+        "yntax",
+        ":\n            results['syntax_valid'] = self.syntax_validity(generated)\n        return results"
+    ],
+    [
+        "def evaluate_multi(self, generated: List[str], expected: List[str], check_syntax=False):\n        length = len(generated)\n        if length !=",
+        " len(expected)",
+        ":\n            return None\n        total = defaultdict(float)\n        counts = defaultdict(int)"
+    ],
+    [
+        "        counts = defaultdict(int)\n        for gen, exp in zip(generated, expected):\n            for key, value in self.evaluate(gen, exp, check_syntax).items():\n                if value i",
+        "s not None",
+        ":\n                    total[key] += value\n                    counts[key] += 1\n        averaged = {key: (total[key] / counts[key]) if counts[key] > 0 else None for key in total}"
+    ]
+]
