@@ -217,4 +217,4 @@ Caution is advised when trying to reproduce the results. Models can quickly cons
 
 
 
-This README provides an overview of the project’s objectives, dataset preparation methodology, and evaluation metrics. Please refer to individual scripts and configuration files for implementation details.
+This README provides an overview of the project’s objectives, dataset preparation methodology, and evaluation metrics. Please refer to individual scripts for implementation details.
