@@ -7,7 +7,7 @@ The objective of this project is to systematically create and evaluate a dataset
 ## Process Overview
 
 ### 1. Code Parsing
-The initial phase focuses on identifying and extracting complete functions and classes from Python source files, using the Abstract Syntax Tree (AST) library. These extracted code blocks represent fundamental units for analysis. To facilitate this, I developed the script [`CodeParser.py`](CodeParser.py), which:
+The initial phase focuses on identifying and extracting complete functions and classes from Python source files, using the Abstract Syntax Tree (AST) library. Source files belong to the current project as well as random scripts from previous projects that are biased toward mathematical concepts and numpy syntax. Extracted code blocks represent fundamental units for analysis. To facilitate this, I developed the script [`CodeParser.py`](CodeParser.py), which:
 - Removes comments and blank lines for cleaner analysis.
 - Extracts code blocks (functions and classes) for structured dataset creation.
 
@@ -209,7 +209,7 @@ Caution is advised when trying to reproduce the results. Models can quickly cons
 
 ## Remarks
 - Initial goal was extensive evaluation of multiple models on large number of examples. Evaluation on 20-50 examples, in my opinion, would not be informative enough.
-- Source code used for example extraction was heavily biased toward mathematical concepts and formulas, using a lot of numpy syntax. This is a reason for lower performance than expected.
+- Source code used for code block extraction was heavily biased toward mathematical concepts and formulas, using a lot of numpy syntax. This might be a reason for lower performance than expected.
 - Every model was using `float16` precision in order to allow for local execution.
 - Larger models would often give correct response but fail to stop the sequence, continuing generation until `max_new_tokens` limit was reached. These results were still scored highly in HumanEval. Comparatively, `tiny_starcoder_py` would often completely miss the expected response and as a result its score on HumanEval was atrocious.
 - It is also important to note that HumanEval was heavily biased since models were evaluated sequentially instead of alternatingly. 
