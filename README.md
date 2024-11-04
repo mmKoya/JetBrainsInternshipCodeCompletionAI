@@ -21,7 +21,7 @@ Using [`DatasetCreator.py`](DatasetCreator.py), I generated separate datasets fo
 
 Each parameter combination results in a unique dataset, enabling systematic analysis across different configurations.
 
-Initially, this process produced over 10,000 examples across many parameter combinations. Due to computational constraints, the project was scaled back. Ultimately, 50 examples were randomly sampled from each of 7 parameter-specific datasets. Additional datasets were sampled with same parameters but the middle part was randomly split as to mimic AI completion after manually writing the beginning of the missing part. In total 700 examples were created. The following are the final datasets I came up with:
+Initially, this process produced over 10,000 examples across many parameter combinations. Due to computational constraints, the project was scaled back. Ultimately, 50 examples were randomly sampled from each of 7 parameter-specific datasets. Additional datasets were sampled using the same parameters, with the middle section randomly divided to simulate AI completion following a manually written introduction to the missing portion. In total 700 examples were created. The following are the final datasets I came up with:
 
 | Dataset ID | Code Block Type | Missing Part Type                        | Missing Part Size                                    | Context Size |
 |----------------------------------------------|------------------------------------------------|--------------------------|------------|------|
