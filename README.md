@@ -167,15 +167,15 @@ The [`AverageEvaluation.py`](AverageEvaluation.py) script
 | codegemma-7b       | 0.4314      | 0.7197   | 0.4018   | 0.6534   | 0.6503   | 0.6555   | 0.984        |
 
 ## Human Evaluation
-A subset of 50 examples was randomly sampled from original 700 and used for human evaluation as well as previous metrics. This was accomplieshed with [`HumanEvaluation.py`](HumanEvaluation.py) script. Human scoring was performed by assigning a value from 0 to 10 for each example, averaging them and rescaling by `0.1`. 
+A subset of 50 examples was randomly sampled from original 700 and used for human evaluation as well as previous metrics. This was accomplieshed with [`HumanEvaluation.py`](HumanEvaluation.py) script. Human scoring was conducted by randomly shuffling model responses for each input, assigning each response a score from 0 to 10. The scores were then averaged and rescaled by a factor of 0.1.
 
 | Model              | HumanEval   | Exact Match | CHRF     | BLEU     | ROUGE    | METEOR   | BERT     |
 |--------------------|-------------|-------------|----------|----------|----------|----------|----------|
-| tiny_starcoder_py  | 0.108       | 0.00        | 0.2767   | 0.0596   | 0.1532   | 0.2616   | -0.1121  |
-| starcoder2-3b      | 0.526       | 0.34        | 0.6427   | 0.2612   | 0.5458   | 0.5204   | 0.5114   |
-| starcoder2-7b      | 0.596       | 0.38        | 0.6524   | 0.2552   | 0.5842   | 0.5313   | 0.5893   |
-| codegemma-2b       | 0.542       | 0.36        | 0.6013   | 0.2092   | 0.5597   | 0.4894   | 0.5261   |
-| codegemma-7b       | 0.624       | 0.42        | 0.6913   | 0.2907   | 0.6398   | 0.5918   | 0.6698   |
+| tiny_starcoder_py  | 0.900       | 0.00        | 0.2767   | 0.0596   | 0.1532   | 0.2616   | -0.1121  |
+| starcoder2-3b      | 0.532       | 0.34        | 0.6427   | 0.2612   | 0.5458   | 0.5204   | 0.5114   |
+| starcoder2-7b      | 0.56        | 0.38        | 0.6524   | 0.2552   | 0.5842   | 0.5313   | 0.5893   |
+| codegemma-2b       | 0.498       | 0.36        | 0.6013   | 0.2092   | 0.5597   | 0.4894   | 0.5261   |
+| codegemma-7b       | 0.616       | 0.42        | 0.6913   | 0.2907   | 0.6398   | 0.5918   | 0.6698   |
 
 ## Steps for reproduction
 - First to create datasets you need to put `.py` files you want to use as source in `RandomScripts` directory. Then run [`DatasetCreator.py`](DatasetCreator.py) which will populate `Datasets` directory. Parameters are hardcoded.
