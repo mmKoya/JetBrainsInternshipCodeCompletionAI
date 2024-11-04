@@ -1,9 +1,313 @@
 {
-    "exact_match": 0.36,
-    "chrf": 0.6012892712965529,
-    "bleu": 0.20922114360593702,
-    "rouge": 0.5597198678068463,
-    "meteor": 0.4893917726786387,
-    "bert": 0.5261450681276619,
-    "HumanEval": 5.42
+    "scores": {
+        "exact_match": 0.36,
+        "chrf": 0.6012892712965529,
+        "bleu": 0.20922114360593702,
+        "rouge": 0.5597198678068463,
+        "meteor": 0.4893917726786387,
+        "bert": 0.5261450681276619,
+        "HumanEval": 4.98
+    },
+    "examples": [
+        {
+            "generated_block": "c",
+            "generated_middle": "x1, x2, y1, y2 = extent",
+            "true_middle": "image_ar = width / height\n        x1 = np.min(curve[:, 0])\n        x2 = np.max(curve[:, 0])\n        y1 = np.min(curve[:, 1])\n        y2 = np.max(curve[:, 1])",
+            "score": 0
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "eta1, theta2, segments)\n        inner_rho = np.linspace(inner_radius, outer_radius, segments)\n        outer_rho = np.linspace(outer_radius, inner_radius, segments)",
+            "true_middle": "eta1, theta2, segments + 1)\n        inner_rho = np.array([inner_radius + (i % 2) * teeth_width for i in range(segments + 1)])\n        outer_rho = np.array([outer_radius - ((i + aligned) % 2) * teeth_width for i in range(segments + 1)])",
+            "score": 4
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "if start_pos[0] < 0 or start_pos[1] < 0 or end_pos[0] < 0 or end_pos[1] < 0 or start_pos[0] >= num_lines or start_pos[1] >= num_lines or end_pos[0] >= num_lines or end_pos[1] >= num_lines:\n            return None\n        if start_pos[0] > end_pos[0] or start_pos[1] > end_pos[1]:\n            return None\n        if start_pos[0] == end_pos[0] and start_pos[1] == end_pos[1]:\n            return None\n        if start_pos[0] == end_pos[0] and start_pos[1] == end_pos[1] - 1:\n            return None\n        if start_",
+            "true_middle": "start_line, start_idx = start_pos[0] - 1, start_pos[1]\n        end_line, end_idx = end_pos[0] - 1, end_pos[1]\n        if start_line < min_context_lines or num_lines - end_line - 1 < min_context_lines:",
+            "score": 0
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "isinstance(figure, Figure)",
+            "true_middle": "isinstance(figure, Figure)",
+            "score": 10
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": " rotation_offset",
+            "true_middle": " flip_angle + rotation_offset",
+            "score": 5
+        },
+        {
+            "generated_block": "c",
+            "generated_middle": "rve[:, 1], color=outline_color, linewidth=outline_thickness, zorder=z_order + 0.001)\n            if debug_colors:\n                ImageSample.current_outline = (ImageSample.current_outline+1) % 20\n                outline_color = ImageSample.outline_colors[ImageSample.current_outline]",
+            "true_middle": "rve[:, 1], color=outline_color, solid_capstyle='round', transform=self.PersistentTransforms[i] + transform + ax.transData, zorder=z_order, linewidth=outline_thickness)\n    def plot(self, ax: \"Axes\", z_order=1, outline_thickness=0.5, debug_colors=False):\n        z_order += 0.001\n        for curve in self.AdditionalCurves:\n            ax.plot(curve[:, 0], curve[:, 1], color=\"k\", solid_capstyle='round', zorder=z_order, transform=ax.transData, linewidth=outline_thickness)",
+            "score": 4
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "ters\":\n            x_values = values[0]\n            y_values = values[1]\n            curve = np.vstack((x_values, y_values)).T",
+            "true_middle": "tric\":\n            result = [function(value) for value in values]\n            curve = np.array(result)",
+            "score": 0
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": " 1], [1, 1], [1, 0]])\n        curve = CurveTransforms.scale_single(control_nodes, (width, height), inplace=False)",
+            "true_middle": " 1], [-1, 1], [-1, 2], [0, 2], [0, 3]])\n        curve = CurveGenerator.bezier(control_nodes, values)\n        curve = CurveTransforms.fit_c2c(curve, (-width/2, 0, 0, height))",
+            "score": 1
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "xt_lines,",
+            "true_middle": "xt_lines,\n            'assignments',",
+            "score": 3
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "(rho, theta)",
+            "true_middle": "(rho, theta)",
+            "score": 10
+        },
+        {
+            "generated_block": "c",
+            "generated_middle": "image_sample.PersistentTransforms.extend(new_persistent_transforms)\n    @staticmethod\n    def circular_placement_persistent(image_sample: ImageSample, radius=0.5, repetitions: int = None, delta_angle: float = None, local_rotation_offset=0.0,\n                                      global_rotation_offset=0.0, use_flip=False, flip_angle=0.0, reverse_rotation=False, calculate_overlap=False):\n        persistent_transforms = TransformsGenerator.circular_placement(radius, repetitions, delta_angle, local_rotation_offset,\n                                                                       global_rotation_offset, use_flip, flip_angle, reverse_rotation)\n        persistent_paths = []\n        for i in range(len(image_sample.PersistentTransforms)):\n            persistent_paths.append(image_sample.PersistentClipPaths[i])\n        image_sample",
+            "true_middle": "image_sample.PersistentTransforms.extend(new_persistent_transforms)\n    @staticmethod\n    def rotational_repeat_additive(image_sample: ImageSample, repetitions: int = None, delta_angle: float = None,\n                                   rotation_offset=0.0, use_flip=True, flip_angle=0.0, reverse_rotation=False):\n        additive_transforms = TransformsGenerator.rotational_repeat(repetitions, delta_angle, rotation_offset, use_flip, flip_angle, reverse_rotation)",
+            "score": 4
+        },
+        {
+            "generated_block": " ",
+            "generated_middle": "repetitions)",
+            "true_middle": "repetitions)",
+            "score": 10
+        },
+        {
+            "generated_block": " ",
+            "generated_middle": "parentheses_balance == 0:\n                break\n        if parentheses_balance < 0:\n            current_line += 1\n            start_idx = len(lines[current_line]) - 1\n            parentheses_balance = 0\n        elif parentheses_balance > 0:\n            current_line -= 1\n            start_idx = len(lines[current_line]) - 1\n            parentheses_balance = 0\n        else:\n            if current_line == 0:\n                break\n            else",
+            "true_middle": "start_idx < 0",
+            "score": 0
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "radius, width, \"cartesian\")",
+            "true_middle": "radius, width, \"cartesian\")",
+            "score": 10
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "              break\n            prefix = prefix + middle[:split_idx]\n            suffix = suffix + middle[split_idx:]",
+            "true_middle": "              break\n            prefix += middle[:split_idx]",
+            "score": 4
+        },
+        {
+            "generated_block": "c",
+            "generated_middle": "@staticmethod\n    def translate_multi(curves: List[np.ndarray], x=0.0, y=0.0, inplace=True) -> List[np.ndarray]:\n        transform = Affine2D().translate(x, y)\n        return CurveTransforms.apply_affine_multi(curves, transform, inplace)\n    @staticmethod",
+            "true_middle": "@staticmethod\n    def translate_multi(curves: List[np.ndarray], x=0.0, y=0.0, inplace=True) -> List[np.ndarray]:\n        transform = Affine2D().translate(x, y)\n        return CurveTransforms.apply_affine_multi(curves, transform, inplace)\n    @staticmethod",
+            "score": 10
+        },
+        {
+            "generated_block": " ",
+            "generated_middle": "gments is None and delta_angle is not None",
+            "true_middle": "gments is None",
+            "score": 5
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "perm2",
+            "true_middle": "perm2",
+            "score": 10
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "args']) > max_arguments",
+            "true_middle": "arguments']) > max_arguments > 0",
+            "score": 3
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "polar",
+            "true_middle": "polar",
+            "score": 10
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "angle",
+            "true_middle": "angle",
+            "score": 10
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "cycle_length > 0",
+            "true_middle": "cycle_length > 0",
+            "score": 10
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "100, width, gap, pits_per_segment",
+            "true_middle": "100, width, gap, pits_per_segment",
+            "score": 10
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "not isinstance(figure, Figure)",
+            "true_middle": "isinstance(figure, Figure)",
+            "score": 6
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "reverse_rotation",
+            "true_middle": "reverse_rotation",
+            "score": 10
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "self.evaluate_curve_bounds(curve)",
+            "true_middle": "bounds",
+            "score": 0
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "th, gap, pits_per_segment), inner_radius, depth, \"cartesian\"), 1, inner_radius, depth, \"cartesian\")\n        outline_curves = [outer_curve, inner_curve]\n        if half:\n            outline_curves.append(CurveGenerator.half_circle(100, depth, \"cartesian\"))\n        if left_edge:\n            outline_curves.append(CurveGenerator.left_edge(100, depth, \"cartesian\"))\n        if right_edge:\n            outline_curves.append(CurveGenerator.right_edge(100, depth, \"cartesian\"))\n        image_sliced = ImageTransforms.slice_image(image, dpu, segments, dpu, segments, dpu, segments, dpu, dpu, dpu, dpu, dpu, dpu, dpu, dpu, dpu, d",
+            "true_middle": "th, gap, pits_per_segment), (1, -1)), 1, inner_radius, depth, \"cartesian\")\n        (image_sliced, extent, path, outline_curves) = ImageSlicer.custom_ring_arc(image, dpu, inner_curve, outer_curve, sample_rotation,\n                                                                                   sample_rotation + np.pi / segments, left_edge, right_edge)",
+            "score": 1
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "1, number_of_segments)\n            angle = delta_angle\n        if angle is None:\n            angle = 2*np.pi/repetitions\n        if reverse_rotation:\n            angle = -angle\n        scale = np.array(scale)\n        if scale.size == 1:\n            scales = scale*np.ones(repetitions)\n        elif scale.size == 2:\n            scales = np.linspace(scale[0], scale[1], repetitions)\n        elif scale.size == repetitions:\n            scales = scale\n        else:\n            scales = np.ones(repetitions)\n        base_curves = copy.deepcopy(curves)\n        Transformer.scale_curves(curves, scales[0])\n        for i in range(1, repetitions):\n            new_curves = copy.deepcopy(base_curves)\n            Transformer.rotate_curves(new_curves",
+            "true_middle": "1, number_of_segments",
+            "score": 1
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "self.Persistent",
+            "true_middle": "len(self.AdditiveTransforms) == 0",
+            "score": 0
+        },
+        {
+            "generated_block": " ",
+            "generated_middle": "alue\n        elif isinstance(node, ast.Assign):\n            targets = node.targets\n            value = node.value\n        elif isinstance(node, ast.AugAssign):\n            targets = [node.target]\n            value = node.value\n        elif isinstance(node, ast.BinOp):\n            targets = [node.left, node.right]\n            value = node.op\n        elif isinstance(node, ast.BoolOp):\n            targets = [node.values]\n            value = node.op\n        elif isinstance(node, ast.Call):\n            targets = [node.func]\n            value = node.args\n        elif isinstance(node, ast.Compare):\n            targets = [node.left, node.comparators]\n            value = node.ops\n        elif isinstance(node, ast.Constant):\n            targets = []\n            value = node.value\n        elif isinstance",
+            "true_middle": "alue",
+            "score": 1
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "[]",
+            "true_middle": "[]",
+            "score": 10
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "heta1)/n_periods",
+            "true_middle": "heta1)/n_periods",
+            "score": 10
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "x = lines[function_call['end_line'] - 1][:start_idx]",
+            "true_middle": "x = '\\n'.join(lines[function_call['start_line'] - 1:current_line] + [lines[current_line][:start_idx + 2]])",
+            "score": 3
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "(curve1, curve2",
+            "true_middle": "(curve1, curve2, np.array([[curve1[0, 0], curve1[0, 1]]]))",
+            "score": 3
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "func_name is not None",
+            "true_middle": "func_name",
+            "score": 5
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "ource(node)",
+            "true_middle": "ource_segment(self.code, node)",
+            "score": 0
+        },
+        {
+            "generated_block": "c",
+            "generated_middle": "function = lambda x: np.dot(nodes, np.vstack((x, 1)).T)\n        input_coordinate = \"x_input\"",
+            "true_middle": "nodes = np.asfortranarray(nodes)\n        bezier_curve = bezier.Curve(nodes.T, degree=nodes.shape[0] - 1)\n        return bezier_curve.evaluate_multi(values).T\n    @staticmethod\n    def math_function(function, values, input_coordinate=\"x_input\", polar=False):",
+            "score": 0
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "Curves",
+            "true_middle": "Curves",
+            "score": 10
+        },
+        {
+            "generated_block": " ",
+            "generated_middle": " min_context_lines + middle_line_count",
+            "true_middle": " min_context_lines + middle_line_count",
+            "score": 10
+        },
+        {
+            "generated_block": "c",
+            "generated_middle": "ds[0])\n        curve = CurveTransforms.apply_affine_single(curve, transform, inplace=False)\n        extent = curve.shape[1]\n        x_bounds = (np.min(curve[:, 0]), np.max(curve[:, 0]))",
+            "true_middle": "ds[0])\n        return transform.transform(curve)\n    @staticmethod\n    def fit_c2c(curve, extent):\n        x_bounds = (np.min(curve[:, 0]), np.max(curve[:, 0]))",
+            "score": 4
+        },
+        {
+            "generated_block": " ",
+            "generated_middle": "array([width/2, 0, 0, height])))",
+            "true_middle": "flip(CurveTransforms.scale_single(curve, (-1, 1), inplace=False), 0)))",
+            "score": 0
+        },
+        {
+            "generated_block": "c",
+            "generated_middle": "def gear_ring(image, dpu=1000.0, segments=8, inner_radius=0.5, outer_radius=0.8, sample_rotation=0.0, global_rotation=0.0):",
+            "true_middle": "def sine_wave_ring(image, dpu=1000.0, segments=8, periods_per_segment=3, period_offset=0.25, inner_radius=0.5,\n                       outer_radius=0.8, amplitude=0.1, sample_rotation=0.0) -> ImageSample:\n        (image_sliced, extent, path, outline_curves) = ImageSlicer.sine_wave_ring_arc(image, dpu, periods_per_segment,\n                                                                                      period_offset, inner_radius, outer_radius, amplitude, sample_rotation, sample_rotation + np.pi / segments)\n        image_sample = ImageSample(image_sliced, extent, path, outline_curves)",
+            "score": 1
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "tions",
+            "true_middle": "tions\n        if reverse_rotation:\n            angle = -angle",
+            "score": 2
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "gure, Figure)",
+            "true_middle": "gure, Figure)",
+            "score": 10
+        },
+        {
+            "generated_block": " ",
+            "generated_middle": "_pos, end_pos)",
+            "true_middle": "_pos, end_pos, max_characters, min_context_lines, max_context_lines)",
+            "score": 2
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "len(lines)\n        if start_pos[0] < 0 or start_pos[0] >= num_lines or start_pos[1] < 0 or start_pos[1] >= len(lines[start_line]):\n            raise ValueError(\"Invalid start position\")\n        if end_pos[0] < 0 or end_pos[0] >= num_lines or end_pos[1] < 0 or end_pos[1] >= len(lines[end_line]):\n            raise ValueError(\"Invalid end position\")\n        if max_context_lines < 0 or max_context_lines > num_lines:\n            raise ValueError(\"Invalid max_context_lines\")\n        if max_characters < 0 or max_characters > len(lines[start_line]):\n            raise ValueError(\"Invalid max_characters\")\n        if min_context_lines < 0 or min_",
+            "true_middle": "len(lines)",
+            "score": 2
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "node.func, ast.Name)",
+            "true_middle": "node.func, ast.Name)",
+            "score": 10
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "CurveTransforms.translate_single(arc, start, 0, False)",
+            "true_middle": "CurveTransforms.merge_curves([gap1, arc, gap2])",
+            "score": 2
+        },
+        {
+            "generated_block": " ",
+            "generated_middle": "neighbour in region1_info['neighbors']",
+            "true_middle": "neighbour < region2_id",
+            "score": 3
+        },
+        {
+            "generated_block": "d",
+            "generated_middle": "block",
+            "true_middle": "block",
+            "score": 10
+        }
+    ]
 }
