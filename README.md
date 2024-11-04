@@ -41,7 +41,7 @@ Initially, this process produced over 10,000 examples across many parameter comb
 | 14 | Function | Lines with Random Split | 3 Lines | Full Context |
 
 
-### 3. Dataset Sampling and Model Selection
+### 3. Model Selection
 
 
 While I initially intended to test StarCoder2 15B, resource limitations led me to evaluate five smaller models instead:
