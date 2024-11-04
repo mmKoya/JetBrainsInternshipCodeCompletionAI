@@ -190,6 +190,7 @@ Final results of Human Evaluation are shown in the table below.
 | codegemma-7b       | 0.616       | 0.42        | 0.6913   | 0.2907   | 0.6398   | 0.5918   | 0.6698   |
 
 ## Steps for reproduction
+- The [`requirements.txt`](requirements.txt) file contains all the essential packages, and while version numbers are included, they may not be strictly necessary.
 - First to create datasets you need to put `.py` files you want to use as source in `RandomScripts` directory. Then run [`DatasetCreator.py`](DatasetCreator.py) which will populate `Datasets` directory. Parameters are hardcoded.
 - Next running [`Inference.py`](Inference.py) will load each model, generate responses for 50 examples sampled from each dataset and store them in `CodeCompletionInference` directory. Remember to set HF API token. 
 - [`Evaluation.py`](Evaluation.py) loads generated responses, evaluates them relative to ground truth and stores the results in `Evaluation` directory.
@@ -221,7 +222,7 @@ Caution is advised when trying to reproduce the results. Models can quickly cons
 
 ## Remarks
 - Initial goal was extensive evaluation of multiple models on large number of examples. Evaluation on 20-50 examples, in my opinion, would not be informative enough.
-- Source code used for code block extraction was heavily biased toward mathematical concepts and formulas, using a lot of numpy syntax. This might be a reason for lower performance than expected.
+- Source code used for code block extraction was heavily biased toward mathematical concepts and formulas, using a lot of NumPy syntax. This could explain the lower-than-expected performance.
 - Every model was using `float16` precision in order to allow for local execution.
 - Larger models would often give correct response but fail to stop the sequence, continuing generation until `max_new_tokens` limit was reached. These results were still scored highly in HumanEval. Comparatively, `tiny_starcoder_py` would often completely miss the expected response and as a result its score on HumanEval was atrocious.
 
