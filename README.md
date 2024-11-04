@@ -62,6 +62,7 @@ The [`Inference.py`](Inference.py) script prepares the datasets for model infere
 - **METEOR**
 - **BERT Score**
 - **Syntax Validity** (if applicable)
+Note: The syntax validity metric is implemented using the AST library. If AST can successfully parse the code block, including the model-generated missing part, it receives a score of 1.0; otherwise, it scores 0.0. This metric, however, is only applicable when the example provides the full context of a function or class.
 
 ## Results
 The following tables depict metrics achieved by each model.
