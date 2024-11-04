@@ -167,13 +167,25 @@ The [`AverageEvaluation.py`](AverageEvaluation.py) script
 | codegemma-7b       | 0.4314      | 0.7197   | 0.4018   | 0.6534   | 0.6503   | 0.6555   | 0.984        |
 
 ## Human Evaluation
-A subset of 50 examples was randomly sampled from original 700 and used for human evaluation as well as previous metrics. This was accomplieshed with [`HumanEvaluation.py`](HumanEvaluation.py) script. Human scoring was conducted by randomly shuffling model responses for each input, assigning each response a score from 0 to 10. The scores were then averaged and rescaled by a factor of 0.1.
+A subset of 50 examples was randomly sampled from original 700 and used for human evaluation as well as previous metrics. This was accomplieshed with [`HumanEvaluation.py`](HumanEvaluation.py) script. Human scoring was conducted by randomly shuffling model responses for each input, assigning each response a score from 0 to 10. The scores were then averaged and rescaled by a factor of 0.1. Next table shows the scoring rubric I tried to follow:
+
+| Label | Score |
+|-------|-------|
+| Failure | 0 |
+| Failure to stop or finish the sequence | 1-3 |
+| Partial Match | 4-6 |
+| Different Solution | 7-9 |
+| Match | 10 |
+
+Please note that the scoring rubric served only as a guideline, with scores often determined by a combination of multiple factors.
+
+Final results of Human Evaluation are shown in the table below.
 
 | Model              | HumanEval   | Exact Match | CHRF     | BLEU     | ROUGE    | METEOR   | BERT     |
 |--------------------|-------------|-------------|----------|----------|----------|----------|----------|
 | tiny_starcoder_py  | 0.900       | 0.00        | 0.2767   | 0.0596   | 0.1532   | 0.2616   | -0.1121  |
 | starcoder2-3b      | 0.532       | 0.34        | 0.6427   | 0.2612   | 0.5458   | 0.5204   | 0.5114   |
-| starcoder2-7b      | 0.56        | 0.38        | 0.6524   | 0.2552   | 0.5842   | 0.5313   | 0.5893   |
+| starcoder2-7b      | 0.560       | 0.38        | 0.6524   | 0.2552   | 0.5842   | 0.5313   | 0.5893   |
 | codegemma-2b       | 0.498       | 0.36        | 0.6013   | 0.2092   | 0.5597   | 0.4894   | 0.5261   |
 | codegemma-7b       | 0.616       | 0.42        | 0.6913   | 0.2907   | 0.6398   | 0.5918   | 0.6698   |
 
@@ -201,7 +213,7 @@ Caution is advised when trying to reproduce the results. Models can quickly cons
 
 - Close behind, `starcoder2-7b` exhibited strong performance, especially in CHRF, BLEU, and BERTScore metrics, achieving Syntax Validity of 0.894. This model offers a balance between precision and flexibility, although it falls slightly short of `codegemma-7b` in Exact Match and Syntax Validity.
 
-- `codegemma-2b` and `starcoder2-3b` perform reasonably well but show limitations compared to their 7B counterparts. codegemma-2b, however, stands out in Syntax Validity with a score of 0.956, suggesting it may be suitable for applications where valid syntax is prioritized, despite lower Exact Match and BLEU scores.
+- `codegemma-2b` and `starcoder2-3b` perform reasonably well but show limitations compared to their 7B counterparts. `codegemma-2b`, however, stands out in Syntax Validity with a score of 0.956, suggesting it may be suitable for applications where valid syntax is prioritized, despite lower Exact Match and BLEU scores.
 
 - Finally, `tiny_starcoder_py` has the lowest performance across all metrics, indicating limited applicability for tasks where high accuracy, fluency, and syntactic correctness are required.
 
@@ -212,7 +224,6 @@ Caution is advised when trying to reproduce the results. Models can quickly cons
 - Source code used for code block extraction was heavily biased toward mathematical concepts and formulas, using a lot of numpy syntax. This might be a reason for lower performance than expected.
 - Every model was using `float16` precision in order to allow for local execution.
 - Larger models would often give correct response but fail to stop the sequence, continuing generation until `max_new_tokens` limit was reached. These results were still scored highly in HumanEval. Comparatively, `tiny_starcoder_py` would often completely miss the expected response and as a result its score on HumanEval was atrocious.
-- It is also important to note that HumanEval was heavily biased since models were evaluated sequentially instead of alternatingly. 
 
 
 
