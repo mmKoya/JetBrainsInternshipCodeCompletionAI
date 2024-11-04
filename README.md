@@ -157,7 +157,7 @@ The following tables depict metrics achieved by each model.
 |     14     |      0.26   | 0.6830       | 0.4998       | 0.6355       | 0.6765       | 0.6509       |     0.96     |
 
 ## Average results per model
-The [`AverageEvaluation.py`](AverageEvaluation.py) script
+The [`AverageEvaluation.py`](AverageEvaluation.py) script averages metrics across all datasets.
 | Model              | Exact Match | CHRF     | BLEU     | ROUGE    | METEOR   | BERT     | Syntax Valid |
 |--------------------|-------------|----------|----------|----------|----------|----------|--------------|
 | tiny_starcoder_py  | 0.0243      | 0.3284   | 0.0894   | 0.2121   | 0.3158   | -0.0007  | 0.322        |
