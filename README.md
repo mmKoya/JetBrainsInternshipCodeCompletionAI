@@ -208,8 +208,6 @@ Caution is advised when trying to reproduce the results. Models can quickly cons
 
 *Note: This evaluation was conducted on a smaller dataset than initially intended, so the reported scores may have a margin of error. Consequently, while the general trends are likely indicative of each model's relative performance, specific metric values could vary with a larger dataset.*
 
-- This project evaluates the performance of several models on code generation tasks using a variety of metrics, including Exact Match, CHRF, BLEU, ROUGE, METEOR, BERTScore, and Syntax Validity. The results highlight clear distinctions in model effectiveness and syntax reliability, offering insights into their suitability for different applications in natural language code generation.
-
 - Among the models tested, `codegemma-7b` achieved the best overall performance, consistently outperforming other models across most metrics, including Exact Match, BLEU, ROUGE, and METEOR. Its Syntax Validity score of 0.984 also indicates high reliability in generating syntactically correct code, making it an excellent choice for tasks requiring accurate and valid outputs.
 
 - Close behind, `starcoder2-7b` exhibited strong performance, especially in CHRF, BLEU, and BERTScore metrics, achieving Syntax Validity of 0.894. This model offers a balance between precision and flexibility, although it falls slightly short of `codegemma-7b` in Exact Match and Syntax Validity.
